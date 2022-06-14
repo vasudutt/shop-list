@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { FiEdit, FiTrash } from 'react-icons/fi';
 import Accordion from './Accordion';
+import EditForm from './EditForm';
 import { deleteShop } from '../../features/shopList/shopListSlice';
 
 function Card({ id, name, area, category, openingDate, closingDate }) {
+	const [showEditForm, setShowEditForm] = useState(false);
 	const dispatch = useDispatch();
 
 	const handleDelete = () => {
@@ -21,7 +23,7 @@ function Card({ id, name, area, category, openingDate, closingDate }) {
 
 			<div className='flex flex-col items-end'>
 				<div className='flex justify-between pb-2 text-lg w-12'>
-					<FiEdit className='cursor-pointer'/>
+					<FiEdit className='cursor-pointer' onClick={() => {setShowEditForm(true)}}/>
 					<FiTrash className='cursor-pointer' onClick={handleDelete}/>
 				</div>
 				{(new Date() < new Date(closingDate).getTime())
@@ -33,6 +35,17 @@ function Card({ id, name, area, category, openingDate, closingDate }) {
 
 		{ /* Accordion */ }
 		<Accordion category={category} openingDate={openingDate} closingDate={closingDate} />
+
+		{ showEditForm && <EditForm
+								setShowEditForm={setShowEditForm}
+								id={id}
+								name={name}
+								category={category}
+								area={area}
+								openingDate={openingDate}
+								closingDate={closingDate}
+							/> 
+		}
 	</div>
   )
 }

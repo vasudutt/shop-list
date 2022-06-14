@@ -17,9 +17,16 @@ export const shopListSlice = createSlice({
       );
       if (index !== -1) state.splice(index, 1);
     },
+    editShop: (state, action) => {
+      const index = state.findIndex(
+        (element) => element.id === action.payload.id
+      );
+      if (index !== -1) state[index] = { ...action.payload };
+    },
   },
 });
 
-export const { addShop, deleteShop } = shopListSlice.actions;
+export const { addShop, deleteShop, editShop } =
+  shopListSlice.actions;
 
 export default shopListSlice.reducer;

@@ -1,22 +1,22 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { addShop } from '../../features/shopList/shopListSlice';
+import { editShop } from '../../features/shopList/shopListSlice';
 
-function Form({setShowForm}) {
+function EditForm({ setShowEditForm, id, name, area, category, openingDate, closingDate}) {
 	const dispatch = useDispatch();
 
 	const formik = useFormik({
 		initialValues:{
-			name: '',
-			area: '',
-			category: '',
-			openingDate: '',
-			closingDate: ''
+			name,
+			area,
+			category,
+			openingDate,
+			closingDate
 		},
 		onSubmit: values => {
-			setShowForm(false);
-			dispatch(addShop(values));
+			setShowEditForm(false);
+			dispatch(editShop({id, ...values}));
 		},
 		validate: values => {
 			let errors = {};
@@ -112,12 +112,12 @@ function Form({setShowForm}) {
 			{ formik.errors.closingDate && formik.touched.closingDate && <div className='text-sm font-semibold text-red-400 p-1'>{formik.errors.closingDate}</div> }
 			
 			<div className='mt-6 flex justify-between items-center'>
-				<div className='cursor-pointer border py-2 px-4 rounded-md font-semibold bg-red-300 border-red-400 hover:bg-red-400' onClick={()=>{setShowForm(false)}}>Cancel</div>
-				<button className='cursor-pointer border py-2 px-8 rounded-md font-semibold bg-green-300 border-green-400 hover:bg-green-400' type='submit'>Add</button>
+				<div className='cursor-pointer border py-2 px-4 rounded-md font-semibold bg-red-300 border-red-400 hover:bg-red-400' onClick={()=>{setShowEditForm(false)}}>Cancel</div>
+				<button className='cursor-pointer border py-2 px-8 rounded-md font-semibold bg-green-300 border-green-400 hover:bg-green-400' type='submit'>Save</button>
 			</div>
 		</form>
 	</div>
   )
 }
 
-export default Form;
+export default EditForm;
