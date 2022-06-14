@@ -111,9 +111,9 @@ function Form({setShowForm}) {
 			/>
 			{ formik.errors.closingDate && formik.touched.closingDate && <div className='text-sm font-semibold text-red-400 p-1'>{formik.errors.closingDate}</div> }
 			
-			<div className='flex justify-between items-center'>
-				<div className='cursor-pointer' onClick={()=>{setShowForm(false)}}>Cancel</div>
-				<button type='submit'>Add</button>
+			<div className='mt-6 flex justify-between items-center'>
+				<div className='cursor-pointer border py-2 px-4 rounded-md font-semibold bg-red-300 border-red-400 hover:bg-red-400' onClick={()=>{setShowForm(false)}}>Cancel</div>
+				<button className='cursor-pointer border py-2 px-8 rounded-md font-semibold bg-green-300 border-green-400 hover:bg-green-400' type='submit'>Add</button>
 			</div>
 		</form>
 	</div>
